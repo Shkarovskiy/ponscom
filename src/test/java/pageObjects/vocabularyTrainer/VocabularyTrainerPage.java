@@ -76,6 +76,14 @@ public class VocabularyTrainerPage extends PageObjectParent {
                 .clickYesBTN();
     }
 
+    public void resetThisLessonsProgressLevel(String lessonToReset){
+        clickLessonSettingsMenuBTN(lessonToReset)
+                .clickManageLessonDDBTN()
+                .clickManagelessonDDOption(
+                        ManageLessonDDOptions.RESET_THIS_LESSONS_PROGRESS_LEVEL)
+                .clickYesBTN();
+    }
+
 }
 
 

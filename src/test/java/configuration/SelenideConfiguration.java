@@ -12,6 +12,7 @@ import pageObjects.mainPage.LoginPage;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -80,7 +81,7 @@ public class SelenideConfiguration {
             while ((line = br.readLine()) != null) {
                 //as far as these cookies don't affect authorization we skip them because they offen get date = null
                 //that breaks parsing despite the null check
-                if (!line.startsWith("lang") || !line.startsWith("dictuser")) {
+                if (!(line.startsWith("lang")) && !(line.startsWith("dictuser"))) {
                     StringTokenizer str = new StringTokenizer(line, ";");
                     while (str.hasMoreTokens()) {
                         String name = str.nextToken();
@@ -98,7 +99,27 @@ public class SelenideConfiguration {
                         WebDriverRunner.getWebDriver().manage().addCookie(ck);
                     }
                 }
-
+                if (line.startsWith("dictuser")) {
+                    StringTokenizer str = new StringTokenizer(line, ";");
+                    while (str.hasMoreTokens()) {
+                        String name = str.nextToken();
+                        String value = str.nextToken();
+                        String domain = str.nextToken();
+                        String path = str.nextToken();
+                        Date expiry = null;
+                        String dt = null;
+                        if (!(dt = str.nextToken()).equals("null")) {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+//                            expiry = dateFormat.parse(dt);
+                            String date = dateFormat.format(Calendar.getInstance().getTime());
+                            expiry = dateFormat.parse(date);
+                            System.out.println("---current date " + expiry);
+                        }
+                        boolean isSecure = new Boolean(str.nextToken()).booleanValue();
+                        Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
+                        WebDriverRunner.getWebDriver().manage().addCookie(ck);
+                    }
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();

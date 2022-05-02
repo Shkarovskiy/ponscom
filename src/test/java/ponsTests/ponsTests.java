@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import pageObjects.mainPage.MainPage;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDOptions;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDPopups;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.ResetThisLessonsProgressLevelPopupPage;
 import pageObjects.vocabularyTrainer.VocabularyTrainerPage;
 
 import static com.codeborne.selenide.Condition.exist;
@@ -47,8 +48,8 @@ public class ponsTests extends SelenideConfiguration {
 
     @Test
     public void editLessonTitle(){
-        String lessonTitleToUpdate = "lessonXXX";
-        String newLessonTitle = "editedLessonTitle003";
+        String lessonTitleToUpdate = "lesson0004";
+        String newLessonTitle = "editedLessonTitle004";
 
         VocabularyTrainerPage vocabularyTrainerPage = new VocabularyTrainerPage()
                 .openVocabularyTrainerPage();
@@ -68,32 +69,19 @@ public class ponsTests extends SelenideConfiguration {
     }
 
     @Test
-    public void test0001() {
-        MainPage mainPage = new MainPage();
-        System.out.println("--MainPage is created");
-        mainPage.openMainPage();
-        System.out.println("--MainPage is open");
+    public void resetLessonsProgressLevel(){
+        String lessonToReset = "lessonToResetProgress0001";
+        String expectedPopupMessage = "The progress level for all vocabulary in this lesson has been reset.";
+        VocabularyTrainerPage vocabularyTrainerPage = new VocabularyTrainerPage().openVocabularyTrainerPage();
 
-        System.out.println("|" + $("li.dropdown a[href='#']").getOwnText().trim() + "|");
-    }
+        vocabularyTrainerPage
+                .createNewLesson(lessonToReset);
 
-    @Test
-    public void test0002() {
-        MainPage mainPage = new MainPage();
-        System.out.println("--MainPage is created");
-        mainPage.openMainPage();
-        System.out.println("--MainPage is open");
+        vocabularyTrainerPage
+                .resetThisLessonsProgressLevel(lessonToReset);
 
-        System.out.println("|" + $("li.dropdown a[href='#']").getOwnText().trim() + "|");
-    }
-
-    @Test
-    public void test0003() {
-        MainPage mainPage = new MainPage();
-        System.out.println("--MainPage is created");
-        mainPage.openMainPage();
-        System.out.println("--MainPage is open");
-
-        System.out.println("|" + $("li.dropdown a[href='#']").getOwnText().trim() + "|");
+        new ResetThisLessonsProgressLevelPopupPage()
+                .getConfirmationLevelHasBeenReset()
+                .shouldHave(exactOwnText(expectedPopupMessage));
     }
 }
