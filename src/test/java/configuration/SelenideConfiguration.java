@@ -22,6 +22,19 @@ import java.util.StringTokenizer;
  * this Class is extended by each testClass to set @beforeAll @afterAll and browser
  */
 public class SelenideConfiguration {
+    static Set<Cookie> cookiesSet;
+
+    public static void getCookies(){
+        cookiesSet = WebDriverRunner.getWebDriver().manage().getCookies();
+        System.out.println("---< getCookies() >---");
+    }
+
+    public void setCookies(){
+        for(Cookie ck : cookiesSet){
+            WebDriverRunner.getWebDriver().manage().addCookie(ck);
+        }
+        System.out.println("---< setCookies() >---");
+    }
 
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -36,7 +49,8 @@ public class SelenideConfiguration {
     public static void loginAndSetCookies() {
         System.out.println("--@BeforeAll--");
         new LoginPage().login();
-        storeCookieInfo();
+//        storeCookieInfo();
+        getCookies();
     }
 
     @BeforeEach

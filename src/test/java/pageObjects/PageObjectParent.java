@@ -18,7 +18,8 @@ public class PageObjectParent {
         open(url);
         ponsLogo.shouldBe(visible);
 
-        new SelenideConfiguration().loadCookieInfo();
+//        new SelenideConfiguration().loadCookieInfo();
+        new SelenideConfiguration().setCookies();
         WebDriverRunner.getWebDriver().navigate().refresh();
         return this;
     }
