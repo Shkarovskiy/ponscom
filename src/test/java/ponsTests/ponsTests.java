@@ -1,16 +1,14 @@
 package ponsTests;
 
-import static com.codeborne.selenide.Condition.exactOwnText;
 import configuration.SelenideConfiguration;
 import org.junit.jupiter.api.Test;
-import pageObjects.mainPage.MainPage;
-import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDOptions;
-import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDPopups;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.LessonSettingsMenuPage;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.LessonSettingsMenueOptions;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManageEntriesDD.ManageEntriesDdPage;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.ResetThisLessonsProgressLevelPopupPage;
 import pageObjects.vocabularyTrainer.VocabularyTrainerPage;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Condition.*;
 
 public class ponsTests extends SelenideConfiguration {
 
@@ -29,7 +27,7 @@ public class ponsTests extends SelenideConfiguration {
     }
 
     @Test
-    public void deleteLesson(){
+    public void deleteLesson() {
         String lessonTitle = "lessonXX001";
         VocabularyTrainerPage vocabularyTrainerPage = new VocabularyTrainerPage()
                 .openVocabularyTrainerPage();
@@ -47,7 +45,7 @@ public class ponsTests extends SelenideConfiguration {
     }
 
     @Test
-    public void editLessonTitle(){
+    public void editLessonTitle() {
         String lessonTitleToUpdate = "lesson0004";
         String newLessonTitle = "editedLessonTitle004";
 
@@ -69,7 +67,7 @@ public class ponsTests extends SelenideConfiguration {
     }
 
     @Test
-    public void resetLessonsProgressLevel(){
+    public void resetLessonsProgressLevel() {
         String lessonToReset = "lessonToResetProgress0001";
         String expectedPopupMessage = "The progress level for all vocabulary in this lesson has been reset.";
         VocabularyTrainerPage vocabularyTrainerPage = new VocabularyTrainerPage().openVocabularyTrainerPage();
@@ -84,4 +82,42 @@ public class ponsTests extends SelenideConfiguration {
                 .getConfirmationLevelHasBeenReset()
                 .shouldHave(exactOwnText(expectedPopupMessage));
     }
+
+    @Test
+    public void keyInNewVocabularyOrdinary(){
+        String involvedLesson = "lessonToAddWord0001";
+        String word = "book";
+        String translation = "книга";
+
+        VocabularyTrainerPage vocTrainPage = new VocabularyTrainerPage().openVocabularyTrainerPage();
+
+        vocTrainPage.createNewLesson(involvedLesson);
+
+        ManageEntriesDdPage manageEntriesDdPage = (ManageEntriesDdPage) vocTrainPage
+                .clickLessonSettingsMenuBTN(involvedLesson)
+                .clickLessonSettingsMenuOption(
+                        LessonSettingsMenueOptions.MANAGE_ENTRIES);
+
+        manageEntriesDdPage.keyInNewVocabulary(word, translation);
+        new LessonSettingsMenuPage()
+                .getListOfWords()
+                .findBy(exactText(word));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

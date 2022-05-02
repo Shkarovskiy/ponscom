@@ -1,7 +1,6 @@
 package pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups;
 
 import com.codeborne.selenide.SelenideElement;
-import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDPopups;
 
 import static com.codeborne.selenide.Selenide.$;
 

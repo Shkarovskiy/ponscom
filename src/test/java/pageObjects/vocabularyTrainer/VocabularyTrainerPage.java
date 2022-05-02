@@ -5,9 +5,9 @@ import com.codeborne.selenide.SelenideElement;
 import pageObjects.PageObjectParent;
 import pageObjects.vocabularyTrainer.AddLessonDD.AddLessonDDPage;
 import pageObjects.vocabularyTrainer.AddLessonDD.CreateLessonPopupPage;
-import pageObjects.vocabularyTrainer.LessonSettingsMenue.LessonSettingsMenuePage;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.LessonSettingsMenuPage;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDOptions;
-import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManageLessonDDPopups;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.ManageLessonDDPopups;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.$;
@@ -45,13 +45,13 @@ public class VocabularyTrainerPage extends PageObjectParent {
         createLessonPopupPage.clickSaveBTN();
     }
 
-    public LessonSettingsMenuePage clickLessonSettingsMenuBTN(String titleOfTargetLesson) {
+    public LessonSettingsMenuPage clickLessonSettingsMenuBTN(String titleOfTargetLesson) {
         listOfAllDisplayedLessons.
                 findBy(exactText(titleOfTargetLesson))
                 .ancestor("div")
                 .sibling(1)
                 .click();
-        return new LessonSettingsMenuePage();
+        return new LessonSettingsMenuPage();
     }
 
     public void deleteLesson(String titleOfLessonToDelete) {

@@ -3,6 +3,7 @@ package pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD;
 import com.codeborne.selenide.ElementsCollection;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.DeleteLessonPopupPage;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.EditLessonTitlePopupPage;
+import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.ManageLessonDDPopups;
 import pageObjects.vocabularyTrainer.LessonSettingsMenue.ManagelessonDD.ManagelessonDDPopups.ResetThisLessonsProgressLevelPopupPage;
 
 import static com.codeborne.selenide.Condition.exactText;
@@ -18,8 +19,8 @@ public class ManagelessonDDPage {
         return new DeleteLessonPopupPage();
     }
 
-    public ManageLessonDDPopups clickManagelessonDDOption(ManageLessonDDOptions managelessonDDOptionEnum) {
-        switch (managelessonDDOptionEnum) {
+    public ManageLessonDDPopups clickManagelessonDDOption(ManageLessonDDOptions managelessonDDOption) {
+        switch (managelessonDDOption) {
             case DELETE_LESSON:
                 managelessonDDOptions.findBy(exactText("Delete lesson")).click();
                 manageLessonDDPopups = new DeleteLessonPopupPage();
