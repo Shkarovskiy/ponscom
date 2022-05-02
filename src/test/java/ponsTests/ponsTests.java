@@ -30,7 +30,7 @@ public class ponsTests extends SelenideConfiguration {
 
     @Test
     public void deleteLesson(){
-        String lessonTitle = "lessonXXX";
+        String lessonTitle = "lessonXX001";
         VocabularyTrainerPage vocabularyTrainerPage = new VocabularyTrainerPage()
                 .openVocabularyTrainerPage();
 
